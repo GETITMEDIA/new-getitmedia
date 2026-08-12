@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Custom Premium Cursor — dot (instant) + trailing ring (rAF eased)
+   The native arrow cursor is kept visible; this layer rides alongside it
+   as a decorative trailing effect rather than replacing it.
+   Desktop-only (hover:hover + pointer:fine); cursor layer is
+   pointer-events:none so it can never block clicks, scrolling, or text
+   selection.
+   ========================================================================== */
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 999998;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  will-change: transform;
+}
+
+.cursor-dot.is-visible,
+.cursor-ring.is-visible { opacity: 1; }
+
+.cursor-dot { z-index: 999999; }
+
+/* Inner elements carry the *visual* styling (size/scale/color) so their
+   CSS transitions never fight with the per-frame JS transform updates
+   on the outer wrappers above. */
+
+.cursor-dot__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--accent, #e8622c);
+  box-sizing: border-box;
+  transform: scale(1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease;
+}
+
+.cursor-ring__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent, #e8622c);
+  background: transparent;
+  box-sizing: border-box;
+  transform: scale(1);
+  transition:
+    width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    height 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    margin 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-width 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hover state — nearing a link/button */
+.cursor-ring.is-hover .cursor-ring__inner {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-width: 2px;
+  border-color: var(--accent-light, #f2864f);
+  background: rgba(232, 98, 44, 0.07);
+  box-shadow: 0 0 22px rgba(232, 98, 44, 0.3);
+}
+
+.cursor-dot.is-hover .cursor-dot__inner { transform: scale(0.6); }
+
+/* Active/click state — subtle bounce */
+.cursor-ring.is-active .cursor-ring__inner { transform: scale(0.82); }
+.cursor-dot.is-active .cursor-dot__inner { transform: scale(1.6); }
+
+/* Native arrow cursor is intentionally left alone (no cursor:none override) —
+   the dot/ring simply animate alongside it. */
+
+/* Failsafe: never show the trailing effect on touch/coarse-pointer devices */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring { display: none !important; }
+}
