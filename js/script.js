@@ -142,4 +142,70 @@
       mobileServicesTrigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     });
   }
+
+  /* ------------------------------------------------------------------
+     Scroll parallax — any element with [data-parallax="0.15"] drifts
+     vertically at that fraction of the scroll distance, giving decorative
+     background art (e.g. the services shape) a subtle depth effect as the
+     page background color/section itself stays put. rAF-throttled so it
+     never runs more than once per frame; skipped entirely for
+     prefers-reduced-motion.
+  ------------------------------------------------------------------ */
+  var parallaxEls = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+
+  if (parallaxEls.length) {
+    var parallaxTicking = false;
+
+    function updateParallax() {
+      var viewportH = window.innerHeight;
+      parallaxEls.forEach(function (el) {
+        var speed = parseFloat(el.getAttribute('data-parallax')) || 0.15;
+        var rect = el.getBoundingClientRect();
+        // Distance of the element's center from the viewport's center,
+        // scaled by speed — 0 when centered, +/- as it scrolls past.
+        var offset = (rect.top + rect.height / 2 - viewportH / 2) * speed;
+        el.style.transform = 'translate3d(0, ' + (-offset * 0.2).toFixed(2) + 'px, 0)';
+      });
+      parallaxTicking = false;
+    }
+
+    function onParallaxScroll() {
+      if (!parallaxTicking) {
+        window.requestAnimationFrame(updateParallax);
+        parallaxTicking = true;
+      }
+    }
+
+    updateParallax();
+    window.addEventListener('scroll', onParallaxScroll, { passive: true });
+    window.addEventListener('resize', onParallaxScroll);
+  }
+
+  /* ------------------------------------------------------------------
+     Services section — per-element scroll-triggered reveal.
+     Progressive enhancement only: every [data-reveal] element (the shape,
+     the heading block, each card) is fully visible by default in CSS, so
+     nothing depends on this running. When IntersectionObserver is
+     available, each one is switched to its CSS "hidden" starting state
+     and observed on its own, so it plays its entrance right as IT crosses
+     into the viewport — cards further down the page animate when you
+     actually scroll to them, not all at once when the section top appears.
+  ------------------------------------------------------------------ */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+
+  if (revealEls.length && 'IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+
+    revealEls.forEach(function (el) {
+      el.classList.add('js-reveal');
+      revealObserver.observe(el);
+    });
+  }
 })();
