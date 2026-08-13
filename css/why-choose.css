@@ -1,0 +1,506 @@
+/* ==========================================================================
+   Why Choose Us — dark premium section matching the supplied reference
+   ========================================================================== */
+
+:root {
+  --wcu-lime: #e4551c;
+  --wcu-lime-dim: rgba(228, 85, 28, 0.5);
+  --wcu-card-bg: rgba(255, 255, 255, 0.035);
+  --wcu-card-border: rgba(255, 255, 255, 0.35);
+  --wcu-desc: rgba(255, 255, 255, 0.55);
+}
+
+.wcu {
+  position: relative;
+  background: #060706;
+  overflow: hidden;
+  padding: clamp(56px, 8vw, 108px) 0;
+}
+
+/* Soft green ambient glow, lower-left — the only decorative wash in the
+   section, kept low-opacity and heavily blurred so it never competes with
+   text/card readability. */
+.wcu__glow {
+  position: absolute;
+  left: -12%;
+  bottom: -18%;
+  width: 52vw;
+  height: 52vw;
+  max-width: 620px;
+  max-height: 620px;
+  background: radial-gradient(circle, rgba(228, 85, 28, 0.22), transparent 70%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  animation: wcuGlowDrift 24s ease-in-out infinite;
+  /* Touch/mouse-reactive nudge — script.js sets these while the pointer is
+     down/moving inside the section; they default to 0 so nothing moves
+     until someone actually touches or drags. */
+  translate: var(--wcu-pointer-x, 0px) var(--wcu-pointer-y, 0px);
+  transition: translate 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes wcuGlowDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(4%, -4%) scale(1.1); }
+}
+
+/* Small decorative lime dot, upper-right */
+.wcu__dot {
+  position: absolute;
+  top: 9%;
+  right: 12%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--wcu-lime);
+  box-shadow: 0 0 10px 2px var(--wcu-lime-dim);
+  z-index: 0;
+}
+
+/* Full-bleed background photo. Shows the team photo dimly by default (so
+   the section never sits on flat black alone), then brightens/switches to
+   a specific photo on card hover/focus/touch ("Affordable" / "Punctual" /
+   "Creative" / "Passionate Team" each have their own image in
+   image/all-service/why/, set inline by script.js). Sits above the ambient
+   glow but still behind all real content, and stays dimmed so text/cards
+   remain readable over whichever photo is showing.
+
+   Two independent motions layer on this element without fighting each
+   other, since `scale` and `transform` compose separately:
+   - `scale` handles the hover reveal (starts slightly zoomed in, settles
+     to 1 — a soft premium "focus pull" rather than a hard cut).
+   - `transform` drives a slow, continuous Ken-Burns drift (pan + zoom)
+     that never stops, so the background always feels gently alive. */
+.wcu__bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("../image/all-service/why/team.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.32;
+  scale: 1.06;
+  transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1), scale 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  will-change: opacity, transform;
+  animation: wcuBgKenBurns 26s ease-in-out infinite;
+}
+
+.wcu__bg-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 7, 6, 0.8), rgba(6, 7, 6, 0.93));
+}
+
+.wcu__bg-photo.is-active {
+  opacity: 1;
+  scale: 1;
+}
+
+@keyframes wcuBgKenBurns {
+  0%   { transform: scale(1) translate(0, 0); }
+  50%  { transform: scale(1.07) translate(-1.2%, 1%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wcu__bg-photo { animation: none; transition: none; }
+}
+
+.wcu__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------------- Heading ---------------- */
+
+.wcu__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto clamp(48px, 6vw, 80px);
+}
+
+/* [data-reveal="head"] fade/rise entrance is already defined generically
+   in services.css (attribute-only selector, reused here for consistency
+   with the rest of the site's motion language) — nothing extra needed. */
+
+.wcu__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.wcu__eyebrow-star {
+  color: var(--wcu-lime);
+  font-size: 0.9em;
+}
+
+.wcu__title {
+  margin: 0;
+  font-weight: 300;
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.wcu__title-accent {
+  font-weight: 700;
+  color: var(--wcu-lime);
+}
+
+/* ---------------- Composition: cards | orbit | cards ---------------- */
+
+.wcu__composition {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) minmax(420px, 640px) minmax(200px, 280px);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 48px);
+}
+
+.wcu__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+/* ---------------- Card ---------------- */
+
+.wcu__card {
+  /* Per-card accent — each of the 4 cards sets its own pair inline (see
+     index.html), same technique as the Services and How it Work cards, so
+     all three sections read as one consistent system instead of every
+     card sharing one repeated orange. */
+  --wcu-card-color: #e4551c;
+  --wcu-card-color-light: #ff9a5c;
+  position: relative;
+  background: var(--wcu-card-bg);
+  border: 1px solid var(--wcu-card-border);
+  border-radius: 18px;
+  padding: 22px 20px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Soft ambient glow behind the card, tinted to its own accent — a
+   diffused spotlight seated behind the top-left corner rather than a flat
+   card background, giving it depth against the section's black backdrop. */
+.wcu__card::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -20%;
+  width: 65%;
+  height: 65%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--wcu-card-color) 55%, transparent), transparent 70%);
+  filter: blur(30px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.65;
+  transition: opacity 0.35s ease;
+}
+
+.wcu__card:hover::before,
+.wcu__card.is-active::before {
+  opacity: 1;
+}
+
+.wcu__card:hover {
+  transform: translateY(-6px);
+  border-color: var(--wcu-card-color);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.wcu__card:focus-visible {
+  outline: 2px solid var(--wcu-card-color);
+  outline-offset: 3px;
+}
+
+/* Clicked/tapped/touched card — its photo is currently showing behind the section */
+.wcu__card.is-active {
+  border-color: var(--wcu-card-color);
+  background: color-mix(in srgb, var(--wcu-card-color) 12%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--wcu-card-color) 45%, transparent), 0 20px 40px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* Compact horizontal layout: icon sits left, title+description stack to
+   its right in one row — a more editorial, pill-like read than the
+   previous icon-stacked-on-top card. */
+.wcu__card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.wcu__card-body { min-width: 0; }
+
+.wcu__card-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #0e0e10;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Gradient ring around the icon, echoing the Services/How it Work badges */
+.wcu__card-icon::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  padding: 1.5px;
+  background: conic-gradient(from 180deg, var(--wcu-card-color-light), var(--wcu-card-color), var(--wcu-card-color-light));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.wcu__card:hover .wcu__card-icon { transform: scale(1.08) rotate(-4deg); }
+
+.wcu__card-icon svg {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  stroke: var(--wcu-card-color) !important;
+}
+
+.wcu__card-title {
+  margin: 0 0 4px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.wcu__card-desc {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--wcu-desc);
+}
+
+/* ---------------- Orbit + portrait ---------------- */
+
+.wcu__orbit-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* Dashed tech-ring, slowly rotating on its own — independent of the icon
+   carrier layer (.wcu__orbit-spin), so the two motions read as separate
+   mechanisms (an outer radar sweep + orbiting icons) rather than one
+   static circle. */
+.wcu__orbit-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(228, 85, 28, 0.55);
+  animation: wcuRingSpin 70s linear infinite;
+}
+
+@keyframes wcuRingSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wcu__orbit-ring { animation: none; }
+}
+
+/* One extra concentric ring inside the main dashed one — thin, faint,
+   counter-rotating — enough to read as layered depth without tipping into
+   visual clutter. */
+.wcu__orbit-ring--inner {
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  animation: wcuRingSpin 40s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wcu__orbit-ring--inner { animation: none; }
+}
+
+/* Camera-focus style corner brackets framing the portrait — a small
+   "tech HUD" accent that reinforces the portrait as the focal point. */
+.wcu__portrait-brackets {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 92%;
+  height: 92%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.wcu__portrait-brackets span {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--wcu-lime);
+  opacity: 0.85;
+}
+
+.wcu__portrait-brackets span:nth-child(1) { top: 3%; left: 3%; border-right: none; border-bottom: none; border-radius: 6px 0 0 0; }
+.wcu__portrait-brackets span:nth-child(2) { top: 3%; right: 3%; border-left: none; border-bottom: none; border-radius: 0 6px 0 0; }
+.wcu__portrait-brackets span:nth-child(3) { bottom: 3%; left: 3%; border-right: none; border-top: none; border-radius: 0 0 0 6px; }
+.wcu__portrait-brackets span:nth-child(4) { bottom: 3%; right: 3%; border-left: none; border-top: none; border-radius: 0 0 6px 0; }
+
+.wcu__portrait {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 86%;
+  height: 86%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.wcu__portrait-glow {
+  position: absolute;
+  inset: 0;
+  /* background: radial-gradient(circle at 38% 32%,
+    color-mix(in srgb, var(--wcu-lime) 65%, white) 0%,
+    var(--wcu-lime) 55%,
+    color-mix(in srgb, var(--wcu-lime) 70%, black) 100%); */
+  border-radius: 50%;
+  transform: scale(1.08);
+  z-index: 0;
+  box-shadow: 0 0 90px 20px rgba(228, 85, 28, 0.45);
+}
+
+.wcu__portrait-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  display: block;
+}
+
+/* Continuously-rotating carrier for the 8 icon chips: this whole layer
+   spins a full turn every 30s, carrying every icon's position around the
+   ring with it. */
+.wcu__orbit-spin {
+  position: absolute;
+  inset: 0;
+  animation: wcuOrbitSpin 30s linear infinite;
+}
+
+@keyframes wcuOrbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Orbit icon chips, positioned at 8 points exactly on the ring line (angles
+   measured clockwise from 12 o'clock; radius = 50%, matching the ring's own
+   radius exactly — since .wcu__orbit-ring is inset:0 with border-radius:50%,
+   its circle spans edge-to-edge, so each icon's *center* must sit at the
+   precise sin/cos(45°) ≈ 14.64% / 85.36% points to land on that line). */
+.wcu__orbit-icon {
+  position: absolute;
+  width: clamp(36px, 7vw, 54px);
+  height: clamp(36px, 7vw, 54px);
+  border-radius: 50%;
+  background: #0d0e0d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%);
+}
+
+.wcu__orbit-icon--top          { top: 0%;     left: 50%; }
+.wcu__orbit-icon--upper-right  { top: 14.64%; left: 85.36%; }
+.wcu__orbit-icon--right        { top: 50%;    left: 100%; }
+.wcu__orbit-icon--lower-right  { top: 85.36%; left: 85.36%; }
+.wcu__orbit-icon--bottom       { top: 100%;   left: 50%; }
+.wcu__orbit-icon--lower-left   { top: 85.36%; left: 14.64%; }
+.wcu__orbit-icon--left         { top: 50%;    left: 0%; }
+.wcu__orbit-icon--upper-left   { top: 14.64%; left: 14.64%; }
+
+/* Counter-spins at the exact same speed/duration as the carrier above, so
+   each icon's own artwork stays upright and readable while its position
+   still travels around the ring. */
+.wcu__orbit-icon-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  animation: wcuOrbitSpinReverse 30s linear infinite;
+}
+
+@keyframes wcuOrbitSpinReverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* ---------------- Scroll entrance ---------------- */
+
+[data-reveal="portrait"].js-reveal {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal="portrait"].js-reveal.is-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wcu__glow,
+  .wcu__orbit-spin,
+  .wcu__orbit-icon-inner { animation: none !important; }
+  .wcu__glow { translate: 0 0 !important; transition: none !important; }
+  [data-reveal="portrait"].js-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 1080px) {
+  .wcu__composition { grid-template-columns: 1fr 1fr; }
+  .wcu__orbit-wrap { grid-column: 1 / -1; order: -1; max-width: 420px; margin-bottom: 12px; }
+  .wcu__cards--left,
+  .wcu__cards--right { flex-direction: row; }
+}
+
+@media (max-width: 720px) {
+  .wcu__inner { padding: 0 20px; }
+  .wcu__composition { grid-template-columns: 1fr; }
+  .wcu__orbit-wrap { max-width: 340px; }
+  .wcu__cards--left,
+  .wcu__cards--right { flex-direction: column; }
+  .wcu__orbit-icon { display: none; }
+}

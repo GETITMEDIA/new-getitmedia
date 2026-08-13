@@ -10,12 +10,15 @@
   <!-- Poppins font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700&display=swap"
     rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/about.css" />
   <link rel="stylesheet" href="css/services.css" />
+  <link rel="stylesheet" href="css/why-choose.css" />
+  <link rel="stylesheet" href="css/stats.css" />
+  <link rel="stylesheet" href="css/how-it-works.css" />
   <link rel="stylesheet" href="css/cursor.css" />
 
   <link rel="icon" type="image/png" href="image/logo/2.png" />
@@ -519,10 +522,10 @@
 
         <div class="services__grid">
 
-          <div class="service-card" data-reveal="card">
+          <div class="service-card" data-reveal="card" style="--svc-color:#e4551c; --svc-color-light:#ff9a5c;">
             <div class="service-card__top">
               <span class="service-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#e4551c" stroke-width="1.8">
                   <path d="M3 9l1-5h16l1 5M4 9v10a1 1 0 001 1h14a1 1 0 001-1V9M4 9a2 2 0 002 2 2 2 0 002-2m0 0a2 2 0 002 2 2 2 0 002-2m0 0a2 2 0 002 2 2 2 0 002-2" />
                 </svg>
               </span>
@@ -537,12 +540,12 @@
             </a>
           </div>
 
-          <div class="service-card" data-reveal="card">
+          <div class="service-card" data-reveal="card" style="--svc-color:#3b82f6; --svc-color-light:#93c5fd;">
             <div class="service-card__top">
               <span class="service-card__icon">
                 <svg viewBox="0 0 40 24" width="34" height="20" fill="none">
-                  <text x="0" y="18" font-size="18" font-weight="700" fill="#e8622c">G</text>
-                  <text x="16" y="18" font-size="18" font-weight="700" fill="#171f32">&#8734;</text>
+                  <text x="0" y="18" font-size="18" font-weight="700" fill="#3b82f6">G</text>
+                  <text x="16" y="18" font-size="18" font-weight="700" fill="#ffffff">&#8734;</text>
                 </svg>
               </span>
               <span class="service-card__num">02</span>
@@ -556,13 +559,13 @@
             </a>
           </div>
 
-          <div class="service-card" data-reveal="card">
+          <div class="service-card" data-reveal="card" style="--svc-color:#ec4899; --svc-color-light:#f9a8d4;">
             <div class="service-card__top">
               <span class="service-card__icon service-card__icon--social">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17" cy="7" r="1" /></svg>
-                <svg viewBox="0 0 24 24" fill="#e8622c"><path d="M13 22V12h3.5l.5-4H13V6c0-1.1.4-2 2-2h2V0h-3c-3 0-4.5 1.8-4.5 4.5V8H7v4h2.5v10H13z" /></svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8"><path d="M4 4l16 16M20 4L4 20" /></svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8"><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /><path d="M10 21v-8a3 3 0 016 0v8M10 13a3 3 0 016 0" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17" cy="7" r="1" /></svg>
+                <svg viewBox="0 0 24 24" fill="#ec4899"><path d="M13 22V12h3.5l.5-4H13V6c0-1.1.4-2 2-2h2V0h-3c-3 0-4.5 1.8-4.5 4.5V8H7v4h2.5v10H13z" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.8"><path d="M4 4l16 16M20 4L4 20" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.8"><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /><path d="M10 21v-8a3 3 0 016 0v8M10 13a3 3 0 016 0" /></svg>
               </span>
               <span class="service-card__num">03</span>
             </div>
@@ -575,10 +578,10 @@
             </a>
           </div>
 
-          <div class="service-card" data-reveal="card">
+          <div class="service-card" data-reveal="card" style="--svc-color:#14b8a6; --svc-color-light:#5eead4;">
             <div class="service-card__top">
               <span class="service-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3M8 11l2 2 4-5" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="1.8"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3M8 11l2 2 4-5" /></svg>
               </span>
               <span class="service-card__num">04</span>
             </div>
@@ -591,10 +594,10 @@
             </a>
           </div>
 
-          <div class="service-card" data-reveal="card">
+          <div class="service-card" data-reveal="card" style="--svc-color:#a855f7; --svc-color-light:#d8b4fe;">
             <div class="service-card__top">
               <span class="service-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8">
                   <rect x="3" y="4" width="18" height="13" rx="1.5" />
                   <path d="M8 21h8M12 17v4" />
                   <path d="M8 9l2 2-2 2M13 13h3" />
@@ -611,10 +614,10 @@
             </a>
           </div>
 
-          <div class="service-card" data-reveal="card">
+          <div class="service-card" data-reveal="card" style="--svc-color:#eab308; --svc-color-light:#fde047;">
             <div class="service-card__top">
               <span class="service-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8"><path d="M12 3a8 8 0 1 0 0 16c1 0 1.4-.6 1.4-1.2 0-.3-.1-.6-.3-.9-.2-.3-.3-.5-.3-.9 0-.6.5-1 1.1-1H15a5 5 0 0 0 5-5c0-4-3.6-7-8-7Z" stroke-linejoin="round" /><circle cx="7.8" cy="11" r="1" fill="#e8622c" /><circle cx="10.2" cy="7.6" r="1" fill="#e8622c" /><circle cx="14.2" cy="7.6" r="1" fill="#e8622c" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="1.8"><path d="M12 3a8 8 0 1 0 0 16c1 0 1.4-.6 1.4-1.2 0-.3-.1-.6-.3-.9-.2-.3-.3-.5-.3-.9 0-.6.5-1 1.1-1H15a5 5 0 0 0 5-5c0-4-3.6-7-8-7Z" stroke-linejoin="round" /><circle cx="7.8" cy="11" r="1" fill="#eab308" /><circle cx="10.2" cy="7.6" r="1" fill="#eab308" /><circle cx="14.2" cy="7.6" r="1" fill="#eab308" /></svg>
               </span>
               <span class="service-card__num">06</span>
             </div>
@@ -627,10 +630,10 @@
             </a>
           </div>
 
-          <div class="service-card" data-reveal="card">
+          <div class="service-card" data-reveal="card" style="--svc-color:#ef4444; --svc-color-light:#fca5a5;">
             <div class="service-card__top">
               <span class="service-card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#e8622c" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M9 9l6 3-6 3z" fill="#e8622c" stroke="none" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2" /><path d="M9 9l6 3-6 3z" fill="#ef4444" stroke="none" /></svg>
               </span>
               <span class="service-card__num">07</span>
             </div>
@@ -643,6 +646,268 @@
             </a>
           </div>
 
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ why choose us section  ============ -->
+    <section class="wcu" id="why-choose">
+      <div class="wcu__glow" aria-hidden="true"></div>
+      <span class="wcu__dot" aria-hidden="true"></span>
+      <div class="wcu__bg-photo" id="wcuBgPhoto" aria-hidden="true"></div>
+
+      <div class="wcu__inner">
+
+        <div class="wcu__head" data-reveal="head">
+          <p class="wcu__eyebrow"><span class="wcu__eyebrow-star" aria-hidden="true">✳</span>Why Choose Us</p>
+          <h2 class="wcu__title">
+            Creative <span class="wcu__title-accent">solutions</span><br>
+            exceptional results, always
+          </h2>
+        </div>
+
+        <div class="wcu__composition">
+
+          <div class="wcu__cards wcu__cards--left">
+            <div class="wcu__card" data-reveal="card" style="--wcu-card-color:#e4551c; --wcu-card-color-light:#ff9a5c;" data-bg="image/all-service/why/affortable.jpg" role="button" tabindex="0" aria-pressed="false">
+              <span class="wcu__card-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e4551c" stroke-width="1.6">
+                  <rect x="3" y="3" width="18" height="18" rx="4" />
+                  <path d="M8 12l2.5 2.5L16 9" />
+                </svg>
+              </span>
+              <div class="wcu__card-body">
+                <h3 class="wcu__card-title">Affordable</h3>
+                <p class="wcu__card-desc">Premium strategy and execution at pricing built for growing businesses, not just big budgets.</p>
+              </div>
+            </div>
+
+            <div class="wcu__card" data-reveal="card" style="--wcu-card-color:#14b8a6; --wcu-card-color-light:#5eead4;" data-bg="image/all-service/why/punctual.jpg" role="button" tabindex="0" aria-pressed="false">
+              <span class="wcu__card-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e4551c" stroke-width="1.6">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <path d="M6.5 14v7M17.5 14v3.5M17.5 17.5h3.5" />
+                </svg>
+              </span>
+              <div class="wcu__card-body">
+                <h3 class="wcu__card-title">Punctual</h3>
+                <p class="wcu__card-desc">Every deliverable, campaign, and deadline lands exactly on schedule, every time.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="wcu__orbit-wrap" data-reveal="portrait">
+            <span class="wcu__orbit-ring" aria-hidden="true"></span>
+            <span class="wcu__orbit-ring--inner" aria-hidden="true"></span>
+
+            <div class="wcu__orbit-spin" aria-hidden="true">
+              <span class="wcu__orbit-icon wcu__orbit-icon--top" title="Google My Business">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#e4551c" stroke-width="1.8"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" stroke-linejoin="round" /><circle cx="12" cy="10" r="2.6" /></svg>
+                </span>
+              </span>
+              <span class="wcu__orbit-icon wcu__orbit-icon--upper-right" title="Google &amp; Meta Ads">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#4f8dff" stroke-width="1.8"><path d="M3 10v4a1 1 0 0 0 1 1h2l4.5 4V5L6 9H4a1 1 0 0 0-1 1Z" stroke-linejoin="round" /><path d="M16.5 8.5a5 5 0 0 1 0 7" stroke-linecap="round" /></svg>
+                </span>
+              </span>
+              <span class="wcu__orbit-icon wcu__orbit-icon--right" title="Social Media Marketing">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ff4f8b" stroke-width="1.8"><circle cx="6" cy="12" r="2.3" /><circle cx="18" cy="6" r="2.3" /><circle cx="18" cy="18" r="2.3" /><path d="M8 10.8 16 7M8 13.2l8 3.8" /></svg>
+                </span>
+              </span>
+              <span class="wcu__orbit-icon wcu__orbit-icon--lower-right" title="Search Engine Optimization">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#3fd6c5" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6" /><path d="M15.2 15.2 21 21" stroke-linecap="round" /></svg>
+                </span>
+              </span>
+              <span class="wcu__orbit-icon wcu__orbit-icon--bottom" title="Website Design &amp; Development">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ff7a30" stroke-width="1.8"><rect x="3" y="4.5" width="18" height="14" rx="2.2" /><path d="M3 8.5h18" /><circle cx="6" cy="6.5" r="0.9" fill="#ff7a30" stroke="none" /></svg>
+                </span>
+              </span>
+              <span class="wcu__orbit-icon wcu__orbit-icon--lower-left" title="Graphic Design">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#9aa0a6" stroke-width="1.6"><path d="M12 3a8 8 0 1 0 0 16c1 0 1.4-.6 1.4-1.2 0-.3-.1-.6-.3-.9-.2-.3-.3-.5-.3-.9 0-.6.5-1 1.1-1H15a5 5 0 0 0 5-5c0-4-3.6-7-8-7Z" stroke-linejoin="round" /><circle cx="7.8" cy="11" r="1" fill="#9aa0a6" stroke="none" /><circle cx="10.2" cy="7.6" r="1" fill="#9aa0a6" stroke="none" /></svg>
+                </span>
+              </span>
+              <span class="wcu__orbit-icon wcu__orbit-icon--left" title="Video Editing">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#b56bff" stroke-width="1.8"><rect x="3" y="6.5" width="13" height="11" rx="2" /><path d="M16 10.2 21 7.5v9l-5-2.7" stroke-linejoin="round" /></svg>
+                </span>
+              </span>
+              <span class="wcu__orbit-icon wcu__orbit-icon--upper-left" title="GetIt Media">
+                <span class="wcu__orbit-icon-inner">
+                  <svg viewBox="0 0 32 32" width="16" height="16" fill="none">
+                    <path d="M16 3 L27 9.5 V22.5 L16 29 L5 22.5 V9.5 Z" fill="url(#wcuLogoGrad)" />
+                    <path d="M16 12 L21 15 V21 L16 24 L11 21 V15 Z" fill="#fff" fill-opacity="0.92" />
+                    <defs>
+                      <linearGradient id="wcuLogoGrad" x1="5" y1="3" x2="27" y2="29" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#ff9a5c" />
+                        <stop offset="0.55" stop-color="#e4551c" />
+                        <stop offset="1" stop-color="#111111" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </span>
+              </span>
+            </div>
+
+            <div class="wcu__portrait">
+              <span class="wcu__portrait-glow" aria-hidden="true"></span>
+              <img src="image/all-service/why-01.png" alt="The GetIt Media team" class="wcu__portrait-img" />
+            </div>
+            <span class="wcu__portrait-brackets" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </span>
+          </div>
+
+          <div class="wcu__cards wcu__cards--right">
+            <div class="wcu__card" data-reveal="card" style="--wcu-card-color:#a855f7; --wcu-card-color-light:#d8b4fe;" data-bg="image/all-service/why/creative.jpg" role="button" tabindex="0" aria-pressed="false">
+              <span class="wcu__card-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e4551c" stroke-width="1.6">
+                  <rect x="3" y="3" width="18" height="18" rx="4" />
+                  <path d="M8 12l2.5 2.5L16 9" />
+                </svg>
+              </span>
+              <div class="wcu__card-body">
+                <h3 class="wcu__card-title">Creative</h3>
+                <p class="wcu__card-desc">Fresh, original ideas that make your brand stand out instead of blending in.</p>
+              </div>
+            </div>
+
+            <div class="wcu__card" data-reveal="card" style="--wcu-card-color:#3b82f6; --wcu-card-color-light:#93c5fd;" data-bg="image/all-service/why/team.jpg" role="button" tabindex="0" aria-pressed="false">
+              <span class="wcu__card-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e4551c" stroke-width="1.6">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <path d="M6.5 14v7M17.5 14v3.5M17.5 17.5h3.5" />
+                </svg>
+              </span>
+              <div class="wcu__card-body">
+                <h3 class="wcu__card-title">Passionate Team</h3>
+                <p class="wcu__card-desc">A dedicated crew that genuinely cares about your success, not just the invoice.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ stats section  ============ -->
+    <section class="stats" id="stats">
+      <div class="stats__inner">
+        <div class="stats__head">
+          <p class="stats__eyebrow"><span aria-hidden="true"></span>Our Impact</p>
+          <h2 class="stats__title">Numbers that speak for themselves</h2>
+        </div>
+        <div class="stats__grid" id="statsGrid">
+          <div class="stat-card">
+            <p class="stat-card__label">30+ Google reviews</p>
+            <p class="stat-card__value" data-count-target="4.9" data-count-decimals="1">4.9</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__label">Clients world-wide</p>
+            <p class="stat-card__value" data-count-target="170" data-count-suffix="+">170+</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__label">Completed projects</p>
+            <p class="stat-card__value" data-count-target="1.7" data-count-decimals="1" data-count-suffix="k">1.7k</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__label">Client satisfaction</p>
+            <p class="stat-card__value" data-count-target="95" data-count-suffix="%">95%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ how it works section  ============ -->
+    <section class="how" id="how-it-works">
+      <div class="how__glow" aria-hidden="true"></div>
+      <div class="how__inner">
+
+        <div class="how__head" data-reveal="head">
+          <div class="how__heading">
+            <p class="how__eyebrow">
+              <span class="how__eyebrow-dot" aria-hidden="true"><span></span></span>
+              How it Work
+            </p>
+            <h2 class="how__title">
+              <span class="how__title-line">Simple Steps to</span>
+              <span class="how__title-line how__title-line--fade">Digital Success</span>
+            </h2>
+          </div>
+
+          <div class="how__desc-block">
+            <p class="how__desc">Our streamlined process ensures your digital growth is seamless and effective. ipsum dolor sit amet, consectetur adipiscing elit. In ex ligula, varius at rutrum et, finibus sed felis.</p>
+            <a href="#contact" class="how__cta">
+              Get Started Now
+              <span class="how__cta-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="white" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="how__steps">
+          <div class="how__step" data-reveal="card" style="--step-color:#e4551c; --step-color-light:#ff8a4d;">
+            <div class="how__step-top">
+              <span class="how__step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#e4551c" stroke-width="1.5">
+                  <circle cx="12" cy="6" r="2" /><circle cx="6" cy="14" r="2" /><circle cx="18" cy="14" r="2" /><circle cx="12" cy="19" r="2" />
+                  <path d="M12 8v3M8 13l-.5-1M16 13l.5-1M10.5 17.5L12 17M13.5 17.5L12 17" />
+                </svg>
+                <span class="how__step-num">01</span>
+              </span>
+              <h3 class="how__step-title">Discovery &amp; Consult</h3>
+            </div>
+            <p class="how__step-desc">Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+          </div>
+
+          <div class="how__step" data-reveal="card" style="--step-color:#14b8a6; --step-color-light:#5eead4;">
+            <div class="how__step-top">
+              <span class="how__step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#e4551c" stroke-width="1.5">
+                  <circle cx="10.5" cy="10.5" r="6.5" /><path d="M20 20l-4.35-4.35" stroke-linecap="round" />
+                </svg>
+                <span class="how__step-num">02</span>
+              </span>
+              <h3 class="how__step-title">Strategy &amp; Planning</h3>
+            </div>
+            <p class="how__step-desc">Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+          </div>
+
+          <div class="how__step" data-reveal="card" style="--step-color:#3b82f6; --step-color-light:#93c5fd;">
+            <div class="how__step-top">
+              <span class="how__step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#e4551c" stroke-width="1.5">
+                  <rect x="3" y="4" width="14" height="10" rx="1.5" /><path d="M8 18h6M11 14v4" />
+                  <path d="M17 8l3-2v6l-3-2" />
+                </svg>
+                <span class="how__step-num">03</span>
+              </span>
+              <h3 class="how__step-title">Execution &amp; Optimize</h3>
+            </div>
+            <p class="how__step-desc">Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+          </div>
+
+          <div class="how__step" data-reveal="card" style="--step-color:#ec4899; --step-color-light:#f9a8d4;">
+            <div class="how__step-top">
+              <span class="how__step-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#e4551c" stroke-width="1.5">
+                  <circle cx="12" cy="8" r="4" /><path d="M12 12v3M9 21l3-3 3 3" />
+                  <path d="M4 8h2M18 8h2M12 2v2" />
+                </svg>
+                <span class="how__step-num">04</span>
+              </span>
+              <h3 class="how__step-title">Result &amp; Growth</h3>
+            </div>
+            <p class="how__step-desc">Lorem ipsum dol consectetur adipiscing elit ut elit tell luctus nec ullamcorper mattis</p>
+          </div>
         </div>
 
       </div>

@@ -3,7 +3,7 @@
    ========================================================================== */
 
 :root {
-  --services-gray: #6b7280;
+  --services-gray: rgba(255, 255, 255, 0.035);
 }
 
 .services {
@@ -236,6 +236,7 @@
 
 .services__title {
   margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 800;
   font-size: clamp(1.8rem, 3.4vw, 2.6rem);
   line-height: 1.15;
@@ -243,39 +244,28 @@
   color: white;
 }
 
-/* ---------------- Unique title entrance: per-word blur-rise stagger ----------------
-   Each word starts blurred, dropped, and invisible, then snaps into sharp
-   focus one after another — a distinct "typographic reveal" rather than a
-   plain block fade, without needing any extra JS beyond the existing
+/* ---------------- Unique title entrance: slow typewriter reveal ----------------
+   The whole heading "types" itself in left-to-right via a stepped
+   clip-path sweep — slow and deliberate (2.6s, 36 discrete steps) rather
+   than a quick fade, without needing any extra JS beyond the existing
    [data-reveal="head"] observer that's already wired up. */
 .services__title-word { display: inline-block; }
 
 /* Hidden starting state only applies once JS confirms it can animate this
    in (mirrors the [data-reveal] progressive-enhancement pattern) — so the
    heading stays fully visible if JS/IntersectionObserver isn't available. */
-[data-reveal="head"].js-reveal .services__title-word {
-  opacity: 0;
-  transform: translateY(22px);
-  filter: blur(8px);
+[data-reveal="head"].js-reveal .services__title {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 2.6s steps(36, end);
 }
 
-[data-reveal="head"].js-reveal.is-revealed .services__title-word {
-  animation: servicesWordIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-[data-reveal="head"].js-reveal.is-revealed .services__title-word:nth-child(1) { animation-delay: 0.05s; }
-[data-reveal="head"].js-reveal.is-revealed .services__title-word:nth-child(2) { animation-delay: 0.14s; }
-[data-reveal="head"].js-reveal.is-revealed .services__title-word:nth-child(3) { animation-delay: 0.23s; }
-[data-reveal="head"].js-reveal.is-revealed .services__title-word:nth-child(4) { animation-delay: 0.32s; }
-
-@keyframes servicesWordIn {
-  from { opacity: 0; transform: translateY(22px); filter: blur(8px); }
-  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+[data-reveal="head"].js-reveal.is-revealed .services__title {
+  clip-path: inset(0 0 0 0);
 }
 
 .services__title-accent {
   display: block;
-  font-style: italic;
+  /* font-style: italic; */
   font-weight: 600;
   /* Slow, subtle shimmer sweeping across the accent line — a light-catching
      highlight rather than a full color change, so it reads as premium
@@ -315,7 +305,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .services__title-word,
+  [data-reveal="head"].js-reveal .services__title {
+    clip-path: none !important;
+    transition: none !important;
+  }
   .services__title-accent {
     animation: none !important;
     opacity: 1 !important;
@@ -328,7 +321,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 26px;
+  margin-top: 14px;
 }
 
 .services__cta {
@@ -457,18 +450,43 @@
 /* ---------------- Card ---------------- */
 
 .service-card {
-  background: var(--white);
-  border: 1px solid var(--border-soft);
+  /* Falls back to the site's default orange if a card doesn't set its own
+     --svc-color/--svc-color-light (see the 7 service cards in index.html,
+     each carries a distinct accent inline — same technique as the How it
+     Work step cards). */
+  --svc-color: #e4551c;
+  --svc-color-light: #ff9a5c;
+  background: #0e0e10;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 22px;
   padding: 26px 24px 24px;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.8);
   position: relative;
   overflow: hidden;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color var(--fast) var(--ease);
 }
 
-/* Same light-sweep highlight as the "See All Services" button, gliding
-   across the card on hover — same super-premium touch, applied here too. */
+/* Soft ambient glow in the corner, tinted to this card's own accent —
+   matching the dark-glass treatment used in the How it Work / Why Choose
+   Us sections, so this card style reads as part of the same system. */
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -15%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--svc-color) 45%, transparent), transparent 70%);
+  filter: blur(30px);
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 0;
+}
+
+.service-card:hover::before { opacity: 0.85; }
+
+/* Light-sweep highlight gliding across the card on hover */
 .service-card::after {
   content: "";
   position: absolute;
@@ -476,7 +494,7 @@
   left: -60%;
   width: 45%;
   height: 100%;
-  background: linear-gradient(115deg, transparent, rgba(232, 98, 44, 0.14), transparent);
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.08), transparent);
   transform: skewX(-20deg);
   transition: left 0.75s ease;
   pointer-events: none;
@@ -487,11 +505,12 @@
 
 .service-card:hover {
   transform: translateY(-8px) scale(1.015);
-  box-shadow: 0 28px 52px -18px rgba(23, 31, 50, 0.26);
-  border-color: rgba(232, 98, 44, 0.35);
+  box-shadow: 0 32px 56px -24px color-mix(in srgb, var(--svc-color) 40%, transparent);
+  border-color: color-mix(in srgb, var(--svc-color) 45%, transparent);
 }
 
 .service-card__top {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -499,22 +518,37 @@
 }
 
 .service-card__icon {
+  position: relative;
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: var(--about-icon-bg);
+  background: #0e0e10;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow var(--fast) var(--ease);
 }
 
-.service-card:hover .service-card__icon {
-  transform: rotate(-8deg) scale(1.1);
-  box-shadow: 0 0 0 6px rgba(232, 98, 44, 0.12);
+/* Gradient ring around the icon badge, echoing the How it Work step icons */
+.service-card__icon::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(from 180deg, var(--svc-color-light), var(--svc-color), var(--svc-color-light));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 
-.service-card__icon svg { width: 30px; height: 30px; }
+.service-card:hover .service-card__icon {
+  transform: rotate(-8deg) scale(1.1);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--svc-color) 20%, transparent);
+}
+
+.service-card__icon svg { width: 30px; height: 30px; position: relative; }
 
 .service-card__icon--social {
   display: grid;
@@ -529,7 +563,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--about-accent);
+  background: var(--svc-color);
   color: var(--white);
   font-size: 0.8rem;
   font-weight: 700;
@@ -546,7 +580,7 @@
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 1.5px solid var(--about-accent);
+  border: 1.5px solid var(--svc-color);
   opacity: 0;
   transform: scale(0.85);
   transition: opacity 0.3s ease;
@@ -564,36 +598,39 @@
 }
 
 .service-card__title {
+  position: relative;
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--about-navy);
+  color: #ffffff;
   margin: 0 0 10px;
   transition: color var(--fast) var(--ease);
 }
 
-.service-card:hover .service-card__title { color: var(--about-accent); }
+.service-card:hover .service-card__title { color: var(--svc-color-light); }
 
 .service-card__desc {
+  position: relative;
   font-size: 0.85rem;
   line-height: 1.6;
-  color: var(--about-gray);
+  color: rgba(255, 255, 255, 0.55);
   margin: 0 0 18px;
 }
 
 .service-card__link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--about-navy);
+  color: #ffffff;
 }
 
 .service-card__link-arrow {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: var(--about-accent);
+  background: var(--svc-color);
   color: var(--white);
   display: flex;
   align-items: center;
@@ -604,7 +641,7 @@
 .service-card__link-arrow svg { transition: transform var(--fast) var(--ease); }
 
 .service-card__link:hover .service-card__link-arrow {
-  background: var(--about-accent-dark);
+  background: var(--svc-color-light);
   transform: scale(1.08);
 }
 
