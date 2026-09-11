@@ -187,72 +187,82 @@
     </div>
     <!-- Back-to-top start -->
 
-    <!--Hero Section Start -->
-    <section class="hero-section-4 hero-4 hero-redesign theme-dark" id="home-hero">
-      <!-- Top Left 3D Spiral Icon -->
-      <div class="top-spiral-shape">
-        <img src="images/home-4/hero/circle-shape.png" alt="GetIt Media Icon" data-aos="fade-up">
+    <!--Hero Section Start — Premium Cinematic -->
+    <section class="gm-hero" id="home-hero">
+
+      <!-- Background Video -->
+      <video
+        id="gmHeroVideo"
+        class="gm-hero__video"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4">
+      </video>
+
+      <!-- Cinematic Overlays -->
+      <div class="gm-hero__overlay-dark"></div>
+      <div class="gm-hero__overlay-glow"></div>
+
+      <!-- Subtle Particle Decorations -->
+      <div class="gm-hero__particles">
+        <div class="gm-hero__line gm-hero__line--1"></div>
+        <div class="gm-hero__line gm-hero__line--2"></div>
+        <div class="gm-hero__line gm-hero__line--3"></div>
+        <div class="gm-hero__circle gm-hero__circle--1"></div>
+        <div class="gm-hero__circle gm-hero__circle--2"></div>
       </div>
 
-      <!-- Left Vertical Edge Link -->
-      <a href="#contact" class="left-get-touch">GET IN TOUCH</a>
-
-      <!-- Right Vertical Edge Social Links -->
-      <div class="right-social-list">
-        <span>FOLLOW US -</span>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      </div>
-
-      <div class="auto-container">
-        <div class="row g-4 align-items-center">
-          <!-- Left Text Column -->
-          <div class="col-lg-8" data-aos="fade-up">
-            <div class="hero-content">
-              <h1 class="hero-title wow fadeInUp" data-wow-delay=".3s">
-                Design, tech <span class="ampersand">&amp;</span> magic<br>
-                <span class="hero-pill-badge"><img src="images/home-4/hero/small-img.png" alt="Fluid metallic pill graphic"></span> Transform your<br>
-                <span class="hero-text-accent">ideas into reality</span>
-              </h1>
-              
-              <div class="sub-title-wrapper wow fadeInUp" data-wow-delay=".5s">
-                <span class="sub-title-line"></span>
-                <h4 class="sub-title">Your Best Marketing Partner</h4>
-              </div>
-
-              <div class="video-items wow fadeInUp" data-wow-delay=".7s">
-                <div class="video-btn-wrap">
-                  <a class="video-btn playbtnanim" href="https://www.youtube.com/watch?v=Lplq8RjQ0zU" data-fancybox="gallery" data-caption="GetIt Media Intro Video">
-                    <i class="fa-sharp fa-solid fa-play"></i>
-                  </a>
-                </div>
-                <p>
-                  Today’s market demands more than just creativity — it requires relevance. We blend design thinking with data-driven marketing to purposeful innovative strategies.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Right Arch Image & Rotating Badge Column -->
-          <div class="col-lg-4 col-md-8 offset-md-2 offset-lg-0 wow fadeInUp" data-wow-delay=".4s">
-            <div class="hero-image-col">
-              <div class="hero-arch-wrapper">
-                <!-- Floating Circular Badge -->
-                <div class="hero-circle-badge">
-                  <img src="images/home-4/text-circle-getit.svg" alt="GetIt Media - Digital Agency" class="rotate-svg">
-                  <span class="badge-arrow"><i class="fa-regular fa-arrow-down"></i></span>
-                </div>
-                <!-- Arch Frame Image -->
-                <div class="hero-arch-frame">
-                  <img src="images/home-4/hero/hero-image.jpg" alt="GetIt Media Digital Marketing Specialist" data-aos="fade-up">
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Floating Service Glass Cards -->
+      <div class="gm-hero__float-cards">
+        <!-- SEO Card -->
+        <div class="gm-hero__card liquid-glass gm-hero__card--seo">
+          <p class="gm-hero__card-label">SEO</p>
+          <p class="gm-hero__card-value">+124%</p>
+          <p class="gm-hero__card-sub">Organic Growth</p>
+        </div>
+        <!-- Meta Ads Card -->
+        <div class="gm-hero__card liquid-glass gm-hero__card--ads">
+          <p class="gm-hero__card-label">Meta Ads</p>
+          <p class="gm-hero__card-value">3.8x</p>
+          <p class="gm-hero__card-sub">ROAS</p>
+        </div>
+        <!-- Web Design Card -->
+        <div class="gm-hero__card liquid-glass gm-hero__card--web">
+          <p class="gm-hero__card-label">Web Design</p>
+          <p class="gm-hero__card-value">98%</p>
+          <p class="gm-hero__card-sub">Performance</p>
         </div>
       </div>
+
+      <!-- Hero Content -->
+      <div class="gm-hero__content">
+        <h1 class="gm-hero__heading gm-reveal">
+          We Build Digital Experiences That <span class="gm-hero__heading-accent">Grow.</span>
+        </h1>
+        <p class="gm-hero__subtitle gm-reveal">
+          Digital marketing, creative design, and high-performance web experiences built to move your brand forward.
+        </p>
+        <div class="gm-hero__cta-group gm-reveal">
+          <a href="#contact" class="gm-hero__cta-primary">
+            Start Your Project
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#portfolio" class="gm-hero__cta-secondary liquid-glass" style="border-radius: 100px;">
+            Explore Our Work
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="gm-hero__scroll">
+        <span class="gm-hero__scroll-text">Scroll to Explore</span>
+        <div class="gm-hero__scroll-line"></div>
+      </div>
+
     </section>
 
     <!-- GetIt Media — New About/Intro Section -->
@@ -1173,6 +1183,7 @@
     data-cf-beacon='{"version":"2024.11.0","token":"88f4fa328f314d4c95a104b4a60b2313","r":1}'
     crossorigin="anonymous"></script>
   <script src="js/scroll-anim.js"></script>
+  <script src="js/hero-cinematic.js"></script>
 </body>
 
 </html>
