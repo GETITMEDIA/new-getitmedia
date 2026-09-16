@@ -15,11 +15,32 @@
   position: relative;
   overflow: hidden;
   padding: clamp(58px, 6.4vw, 104px) 0;
+  /* extra room at the head so the watermark name sits above the content */
+  padding-top: calc(clamp(58px, 6.4vw, 104px) + clamp(56px, 10vw, 170px));
   background:
     radial-gradient(ellipse 48% 58% at 24% 12%, rgba(var(--tm-orange-rgb), 0.15), transparent 62%),
     var(--tm-bg);
   color: var(--tm-white);
   isolation: isolate;
+}
+
+/* the name as an outlined watermark along the top of the section */
+.ho__bgname {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 1;
+  transform: translateX(-50%);
+  font-family: var(--tm-serif);
+  font-size: clamp(72px, 15vw, 250px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.025);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  user-select: none;
 }
 
 .ho__inner {
@@ -109,7 +130,7 @@
 }
 
 .ho__figure.is-playing .ho__video { opacity: 1; pointer-events: auto; }
-.ho__figure.is-playing .ho__play { opacity: 0; pointer-events: none; }
+.ho__figure.is-playing + .ho__play { opacity: 0; pointer-events: none; }
 
 .ho__play {
   position: absolute;
@@ -198,6 +219,10 @@
   transition: opacity 0.35s var(--tm-ease), color 0.35s var(--tm-ease);
   pointer-events: none;
 }
+
+/* the top two nodes carry their label above, so it never crosses the ring */
+.ho-node--1 .ho-node__tip,
+.ho-node--2 .ho-node__tip { top: auto; bottom: calc(100% + 9px); }
 
 .ho-node:hover .ho-node__tip,
 .ho-node[aria-selected='true'] .ho-node__tip { opacity: 1; color: var(--tm-orange-lt); }
@@ -328,6 +353,12 @@
 /* =====================================================================
    3. RESPONSIVE
    ===================================================================== */
+/* below this the orbit sits too near the gutter for a centred label to
+   clear it, and the slide heading beside the orbit already names the node */
+@media (max-width: 1320px) {
+  .ho-node__tip { display: none; }
+}
+
 @media (max-width: 1080px) {
   .ho__inner { grid-template-columns: 360px minmax(0, 1fr); }
   .ho-node { width: 54px; height: 54px; margin: -27px 0 0 -27px; font-size: 14px; }
@@ -335,7 +366,9 @@
 
 @media (max-width: 880px) {
   .ho__inner { grid-template-columns: 1fr; }
-  .ho__stage { max-width: 400px; margin: 0 auto; }
+  /* width is explicit: every child is absolute, so an auto-margined
+     stage would otherwise shrink to nothing */
+  .ho__stage { width: 100%; max-width: 400px; margin: 0 auto; }
   .ho__slides { min-height: 0; }
 
   /* the slides stop stacking so the column keeps its natural height */
@@ -346,7 +379,6 @@
 @media (max-width: 520px) {
   .ho__stage { max-width: none; }
   .ho-node { width: 46px; height: 46px; margin: -23px 0 0 -23px; font-size: 12px; }
-  .ho-node__tip { display: none; }
   .ho__play { width: 48px; height: 48px; margin-left: -24px; font-size: 13px; }
   .ho__cta { width: 100%; justify-content: center; }
 }

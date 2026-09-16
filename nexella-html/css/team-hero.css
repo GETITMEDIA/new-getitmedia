@@ -33,13 +33,19 @@
   --mx: 0;
   --my: 0;
 
-  /* artwork: 1u is 1/1440 of the width and 1/858 of the height; the smaller
-     wins so the disc and figure always clear the fold */
-  --ua: clamp(0.44px, min(0.0694vw, 0.1vh), 1px);
+  /* the fixed navbar is taller (93px) than the 76px .page-wrapper reserves
+     for it, and the hero has to fit in what is left of the window */
+  --hz-nav: 93px;
+  --hz-pad: clamp(20px, 3.5vh, 44px);
 
-  /* copy: the stack is ~699u tall with the display headline, so the height
-     term is set to keep 699u inside roughly 87% of the viewport height */
-  --uc: clamp(0.5px, min(0.0694vw, 0.1245vh), 1.02px);
+  /* artwork: 1u is 1/1440 of the width and 1/858 of the height below the
+     navbar; the smaller wins so the disc and figure always clear the fold */
+  --ua: clamp(0.44px, min(0.0694vw, calc((100vh - var(--hz-nav)) / 858)), 1px);
+
+  /* copy: the headline takes ~44vh (4 lines at 9.5vh, plus the line masks)
+     and the rest of the stack is ~259u, so the height term keeps the whole
+     stack between the padding bands below the navbar */
+  --uc: clamp(0.5px, min(0.0694vw, calc((56vh - var(--hz-nav) - 2 * var(--hz-pad)) / 259)), 1.02px);
 
   position: relative;
   overflow: hidden;
@@ -48,7 +54,9 @@
   justify-content: center;
   gap: clamp(18px, 3.4vw, 82px);
   padding-inline: clamp(20px, 3vw, 70px);
-  min-height: calc(858 * var(--ua));
+  /* top band also covers the strip of hero the navbar sits over */
+  padding-block: calc(var(--hz-pad) + var(--hz-nav) - 76px) var(--hz-pad);
+  min-height: calc(858 * var(--ua) + var(--hz-nav) - 76px);
   background:
     radial-gradient(ellipse 52% 60% at 78% 38%, rgba(242, 193, 78, 0.14), transparent 62%),
     var(--hz-cream);
@@ -92,7 +100,7 @@
 .hz__title {
   margin: 0;
   font-size: calc(84 * var(--uc));            /* fallback: no container queries */
-  font-size: clamp(28px, min(14cqw, 11vh), 92px);
+  font-size: clamp(28px, min(14cqw, 9.5vh), 92px);
   font-weight: 800;
   line-height: 1.119;
   letter-spacing: calc(-1.2 * var(--uc));
@@ -145,7 +153,9 @@
   align-items: center;
   gap: calc(30 * var(--uc));
   margin-top: calc(30 * var(--uc));
-  flex-wrap: wrap;
+  /* one row on desktop: a wrapped roster adds a whole line and pushes the
+     hero past the fold; the button gives up width instead */
+  flex-wrap: nowrap;
 }
 
 .hz__cta {
@@ -161,6 +171,8 @@
   color: #fff;
   font-size: calc(16.5 * var(--uc));
   font-weight: 500;
+  /* the button may give up width in a tight row, but never break its label */
+  white-space: nowrap;
   text-decoration: none;
   transition: background 0.3s ease, transform 0.3s var(--hz-ease), box-shadow 0.3s ease;
 }
@@ -184,9 +196,12 @@
 }
 
 /* --- roster cluster: real portraits, overlapped --- */
-.hz__roster { display: flex; align-items: center; gap: calc(13 * var(--uc)); }
+.hz__roster { display: flex; flex: none; align-items: center; gap: calc(13 * var(--uc)); }
 
 .hz__faces { display: flex; }
+
+/* the portraits keep their size; flex would otherwise squash them together */
+.hz__faces > * { flex: none; }
 
 .hz__faces img {
   width: calc(40 * var(--uc));
@@ -239,6 +254,9 @@
   position: relative;
   flex: 0 0 calc(1010 * var(--ua));
   align-self: stretch;
+  /* reach through the padding bands, so the figure still stands on the
+     section's bottom edge and the disc keeps its place below the navbar */
+  margin-block: calc(-1 * var(--hz-pad));
   z-index: 1;
 }
 
@@ -392,8 +410,9 @@
 
   .hz__copy { flex: 0 0 auto; }
   .hz__text { width: calc(470 * var(--uc)); }
+  .hz__actions { flex-wrap: wrap; }
 
-  .hz__art { flex: 0 0 calc(600 * var(--ua)); align-self: stretch; }
+  .hz__art { flex: 0 0 calc(600 * var(--ua)); align-self: stretch; margin-block: 0; }
 
   .hz__disc,
   .hz__ring,

@@ -190,16 +190,8 @@
     <!--Hero Section Start — Premium Cinematic -->
     <section class="gm-hero" id="home-hero">
 
-      <!-- Background Video -->
-      <video
-        id="gmHeroVideo"
-        class="gm-hero__video"
-        autoplay
-        muted
-        playsinline
-        preload="auto"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4">
-      </video>
+      <!-- Antigravity particle field — replaces the old background video -->
+      <div id="antigravity-container" class="gm-hero__field" aria-hidden="true"></div>
 
       <!-- Cinematic Overlays -->
       <div class="gm-hero__overlay-dark"></div>
@@ -521,7 +513,7 @@
 
       </div>
       <div class="shape rotate">
-        <img src="images/home-2/skill-rotate.png" alt="" data-aos="fade-up">
+        <img src="images/home-2/autor-mask1.png" alt="" data-aos="fade-up">
       </div>
       <div class="buler-bg"></div>
     </section>
@@ -1184,6 +1176,10 @@
     crossorigin="anonymous"></script>
   <script src="js/scroll-anim.js"></script>
   <script src="js/hero-cinematic.js"></script>
+  <!-- Three.js drives the hero particle field only; the hero is
+       complete without it and the script guards for its absence -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+  <script src="js/hero-antigravity.js"></script>
 </body>
 
 </html>

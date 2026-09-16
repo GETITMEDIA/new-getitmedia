@@ -111,7 +111,6 @@
   paint-order: stroke fill;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.9);
   padding-bottom: 490px;
-
 }
 .sc-bgtype .sc-bgtype__l1,
 .sc-bgtype .sc-bgtype__l2,
@@ -189,13 +188,11 @@
   position: relative;
   z-index: 1;
   font-size: 0.76rem;
-  line-height: 1.82;
+  line-height: 1.65;
   color: rgba(255, 255, 255, 0.82);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  overflow: hidden;
-  padding-top: 35px;
+  /* the full description fits the card on desktop, so it is no longer cut
+     off after five lines; phones keep a clamp (see the responsive block) */
+  padding-top: 22px;
 }
 .sc-card__index {
   position: relative;
@@ -327,6 +324,20 @@
 }
 
 /* ---- Responsive ---- */
+/* small tablets: the cards shrink faster than the text, so the description is
+   tightened and capped at seven lines to keep the number and title inside */
+@media (min-width: 768px) and (max-width: 1000px) {
+  .sc-card__desc {
+    font-size: 0.7rem;
+    line-height: 1.55;
+    padding-top: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    overflow: hidden;
+  }
+}
+
 @media (max-width: 767px) {
   .sc-section { padding: 40px 0; min-height: auto; }
   .sc-stage { width: 92vw; height: clamp(360px, 110vw, 480px); }
@@ -336,11 +347,17 @@
     height: clamp(175px, 53vw, 230px);
   }
   .sc-card__title { font-size: 1.05rem; }
-  .sc-card__desc 
-  
-  { font-size: 0.68rem; -webkit-line-clamp: 5; }
+  .sc-card__desc {
+    font-size: 0.68rem;
+    padding-top: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+  }
   .sc-meta { display: none; }
   .sc-bgtype .sc-bgtype__l1,
   .sc-bgtype .sc-bgtype__l2 { font-size: clamp(2.6rem, 15vw, 4rem); }
-  .sc-bgtype .sc-bgtype__l3 { font-size: clamp(1.1rem, 6vw, 1.6rem); }
+  .sc-bgtype .sc-bgtype__l3,
+  .sc-bgtype .sc-bgtype__l4 { font-size: clamp(1.1rem, 6vw, 1.6rem); }
 }
