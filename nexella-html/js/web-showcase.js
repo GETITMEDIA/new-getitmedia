@@ -422,12 +422,14 @@
 
   /* ===================================================================
      8. HERO — "Now Showing"
-     Cycles the full-bleed client captures and keeps the rail in step.
+     Cycles the client captures inside the browser frame and keeps the
+     address bar in step. Each capture carries its own data-domain, so the
+     cycle no longer depends on a thumbnail rail being present; when one is
+     present it is still kept in step and remains clickable.
 
      Pauses while the pointer is anywhere in the hero, so you can read a
-     site rather than having it taken away. Clicking a thumbnail selects
-     that build and restarts the dwell. Under reduced motion it shows the
-     first capture and never moves.
+     site rather than having it taken away. Under reduced motion it shows
+     the first capture and never moves.
      =================================================================== */
   (function heroShow() {
     var hero = document.querySelector('.wx-hero');
@@ -436,7 +438,7 @@
     var shots = all('.wx-hero__shot', hero);
     var thumbs = all('.wx-thumb', hero);
     var now = document.getElementById('wxNow');
-    if (shots.length < 2 || !thumbs.length) return;
+    if (shots.length < 2) return;
 
     var DWELL = 6000;
     var i = 0;
@@ -463,8 +465,12 @@
         el.setAttribute('aria-current', k === n ? 'true' : 'false');
       });
 
+      /* the capture is the source of truth for the domain; the thumbnail
+         label is only a fallback for markup that still carries a rail */
       var label = thumbs[n] && thumbs[n].querySelector('.wx-thumb__label');
-      if (now && label) now.textContent = label.textContent;
+      var domain = (shots[n] && shots[n].getAttribute('data-domain')) ||
+                   (label && label.textContent);
+      if (now && domain) now.textContent = domain;
     }
 
     function schedule() {

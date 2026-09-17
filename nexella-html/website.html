@@ -24,6 +24,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
     content="GetIt Media builds fast, responsive, search-ready websites in Pondicherry - design, development, and everything that keeps a site earning after launch.">
+  <!-- Global font family override (must load last) -->
+  <link href="css/global-font.css" rel="stylesheet">
 </head>
 
 <body class="website-page">
@@ -175,91 +177,83 @@
              ============================================================ -->
         <section class="wx-hero" id="top">
 
-          <div class="wx-hero__stage" aria-hidden="true">
-            <img class="wx-hero__shot is-on" data-site="01"
-                 src="images/sites/01-desktop.jpg" alt="" fetchpriority="high">
-            <img class="wx-hero__shot" data-site="02"
-                 src="images/sites/02-desktop.jpg" alt="" loading="lazy">
-            <img class="wx-hero__shot" data-site="03"
-                 src="images/sites/03-desktop.jpg" alt="" loading="lazy">
-            <img class="wx-hero__shot" data-site="04"
-                 src="images/sites/04-desktop.jpg" alt="" loading="lazy">
-            <img class="wx-hero__shot" data-site="05"
-                 src="images/sites/05-desktop.jpg" alt="" loading="lazy">
-            <img class="wx-hero__shot" data-site="06"
-                 src="images/sites/06-desktop.jpg" alt="" loading="lazy">
-          </div>
-
-          <div class="wx-hero__scrim" aria-hidden="true"></div>
+          <!-- ambient only: the client site now lives inside the frame on the
+               right, so nothing competes with the headline for contrast -->
+          <div class="wx-hero__aura" aria-hidden="true"></div>
           <div class="wx-hero__grid" aria-hidden="true"></div>
           <canvas class="wx-hero__canvas" aria-hidden="true"></canvas>
 
           <div class="wx__wrap wx-hero__inner">
+            <div class="wx-hero__split">
 
-            <p class="wx-eyebrow" data-reveal="fade">Web Development Studio &mdash; Pondicherry</p>
+              <!-- ---- left: the message ---- -->
+              <div class="wx-hero__copy">
 
-            <h1 class="wx-hero__title" data-split data-reveal="fade">
-              Build. Design. <i>Launch.</i>
-            </h1>
+                <p class="wx-eyebrow" data-reveal="fade">Web Development Studio &mdash; Pondicherry</p>
 
-            <p class="wx-hero__sub" data-reveal>
-              Modern websites and digital experiences built for modern businesses.
-            </p>
+                <h1 class="wx-hero__title" data-split data-reveal="fade">
+                  Build. Design. <i>Launch.</i>
+                </h1>
 
-            <div class="wx-hero__btns" data-stagger="0.1">
-              <a class="wx-btn" href="#what-we-build" data-magnet="0.26" data-reveal>
-                Explore Our Work
-                <span class="wx-btn__ico" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></span>
-              </a>
-              <a class="wx-btn wx-btn--ghost" href="page-contact.html" data-magnet="0.2" data-reveal>
-                Start Your Project
-                <span class="wx-btn__ico" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
-              </a>
-            </div>
+                <p class="wx-hero__sub" data-reveal>
+                  Modern websites and digital experiences built for modern businesses.
+                </p>
 
-            <ul class="wx-hero__stats" data-reveal>
-              <li><b><span data-count-to="17">17</span></b> Years In Business</li>
-              <li><b><span data-count-to="19">19</span></b> Specialists On Staff</li>
-              <li><b><span data-count-to="52">52</span></b> Client Sites Live</li>
-              <li><b><span data-count-to="100">100</span>%</b> Kept In-House</li>
-            </ul>
+                <div class="wx-hero__btns" data-stagger="0.1">
+                  <a class="wx-btn" href="#what-we-build" data-magnet="0.26" data-reveal>
+                    Explore Our Work
+                    <span class="wx-btn__ico" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></span>
+                  </a>
+                  <a class="wx-btn wx-btn--ghost" href="page-contact.html" data-magnet="0.2" data-reveal>
+                    Start Your Project
+                    <span class="wx-btn__ico" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                  </a>
+                </div>
 
-          </div>
+                <ul class="wx-hero__stats" data-reveal>
+                  <li><b><span data-count-to="17">17</span></b> Years In Business</li>
+                  <li><b><span data-count-to="19">19</span></b> Specialists On Staff</li>
+                  <li><b><span data-count-to="52">52</span></b> Client Sites Live</li>
+                  <li><b><span data-count-to="100">100</span>%</b> Kept In-House</li>
+                </ul>
 
-          <!-- the rail: six live builds, click to show one -->
-          <div class="wx-hero__rail">
-            <p class="wx-hero__now">Now Showing &mdash; <b id="wxNow">bonnechanceheritage.com</b></p>
-            <div class="wx-hero__thumbs">
-              <button type="button" class="wx-thumb is-on" data-site="01"
-                      aria-label="Show bonnechanceheritage.com">
-                <img src="images/sites/01-desktop.jpg" alt="" loading="lazy">
-                <span class="wx-thumb__label">bonnechanceheritage.com</span>
-              </button>
-              <button type="button" class="wx-thumb" data-site="02"
-                      aria-label="Show hotelfrenchcity.com">
-                <img src="images/sites/02-desktop.jpg" alt="" loading="lazy">
-                <span class="wx-thumb__label">hotelfrenchcity.com</span>
-              </button>
-              <button type="button" class="wx-thumb" data-site="03"
-                      aria-label="Show prbmgroups.com">
-                <img src="images/sites/03-desktop.jpg" alt="" loading="lazy">
-                <span class="wx-thumb__label">prbmgroups.com</span>
-              </button>
-              <button type="button" class="wx-thumb" data-site="04"
-                      aria-label="Show kotharividyamandirschool.in">
-                <img src="images/sites/04-desktop.jpg" alt="" loading="lazy">
-                <span class="wx-thumb__label">kotharividyamandirschool.in</span>
-              </button>
-              <button type="button" class="wx-thumb" data-site="05"
-                      aria-label="Show theposhhospital.in">
-                <img src="images/sites/05-desktop.jpg" alt="" loading="lazy">
-                <span class="wx-thumb__label">theposhhospital.in</span>
-              </button>
-              <button type="button" class="wx-thumb" data-site="06"
-                      aria-label="Show triumphslawvision.org">
-                <img src="images/sites/06-desktop.jpg" alt="" loading="lazy">
-                <span class="wx-thumb__label">triumphslawvision.org</span>
-              </button>
+              </div>
+
+              <!-- ---- right: the work, framed ----
+                   #wxNow moved into the address bar, so the domain updates
+                   itself as the rail rotates. js/web-showcase.js is unchanged. -->
+              <div class="wx-hero__show" data-reveal>
+                <div class="wx-frame">
+
+                  <div class="wx-frame__bar">
+                    <span class="wx-frame__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="wx-frame__url">
+                      <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                      <b id="wxNow">bonnechanceheritage.com</b>
+                    </span>
+                    <span class="wx-frame__live">Live</span>
+                  </div>
+
+                  <div class="wx-frame__screen">
+                    <div class="wx-hero__stage">
+                      <img class="wx-hero__shot is-on" data-site="01" data-domain="bonnechanceheritage.com"
+                           src="images/sites/01-desktop.jpg" alt="" fetchpriority="high">
+                      <img class="wx-hero__shot" data-site="02" data-domain="hotelfrenchcity.com"
+                           src="images/sites/02-desktop.jpg" alt="" loading="lazy">
+                      <img class="wx-hero__shot" data-site="03" data-domain="prbmgroups.com"
+                           src="images/sites/03-desktop.jpg" alt="" loading="lazy">
+                      <img class="wx-hero__shot" data-site="04" data-domain="kotharividyamandirschool.in"
+                           src="images/sites/04-desktop.jpg" alt="" loading="lazy">
+                      <img class="wx-hero__shot" data-site="05" data-domain="theposhhospital.in"
+                           src="images/sites/05-desktop.jpg" alt="" loading="lazy">
+                      <img class="wx-hero__shot" data-site="06" data-domain="triumphslawvision.org"
+                           src="images/sites/06-desktop.jpg" alt="" loading="lazy">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
           </div>
 

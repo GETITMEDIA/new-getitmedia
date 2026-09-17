@@ -341,73 +341,44 @@ body.website-page .lt-footer { overflow: hidden; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 130px 0 0;
+  padding: 130px 0 clamp(60px, 8vh, 110px);
   overflow: hidden;
   isolation: isolate;
   background: var(--wx-black);
 }
 
-/* ---- the stage: every capture stacked, one visible ---------------- */
-.wx-hero__stage {
+/* ---- ambient backdrop ---------------------------------------------
+   The client capture used to sit full-bleed behind the headline, which
+   meant the type was always fighting whatever that site's own hero was
+   doing. It now lives in the frame on the right, so all that is left
+   back here is a warm pool of light under the type column. */
+.wx-hero__aura {
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 90% at 16% 38%,
+      rgba(var(--wx-orange-rgb), 0.16) 0%,
+      rgba(var(--wx-orange-rgb), 0.05) 38%,
+      transparent 70%),
+    radial-gradient(60% 70% at 88% 14%,
+      rgba(90, 130, 255, 0.07) 0%,
+      transparent 64%),
+    linear-gradient(180deg, transparent 58%, rgba(5, 5, 8, 0.9) 100%);
 }
 
-.wx-hero__shot {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  opacity: 0;
-  transform: scale(1.06);
-  transition: opacity 1.2s var(--wx-ease), transform 7s linear;
-}
-
-.wx-hero__shot.is-on {
-  opacity: 1;
-  transform: scale(1);       /* a slow settle, not a zoom */
-}
-
-/* ---- the scrim: three layers, each with one job ------------------- */
-.wx-hero__scrim {
+.wx-hero__grid {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    /* 1. holds the type column */
-    linear-gradient(95deg,
-      rgba(5, 5, 8, 0.96) 0%,
-      rgba(5, 5, 8, 0.9) 34%,
-      rgba(5, 5, 8, 0.55) 58%,
-      rgba(5, 5, 8, 0.3) 100%),
-    /* 2. holds the rail along the bottom */
-    linear-gradient(180deg,
-      rgba(5, 5, 8, 0.7) 0%,
-      transparent 22%,
-      transparent 52%,
-      rgba(5, 5, 8, 0.92) 92%),
-    /* 3. keeps the brand temperature over any screenshot */
-    linear-gradient(120deg,
-      rgba(var(--wx-orange-rgb), 0.14),
-      transparent 52%);
-}
-
-/* the faint grid, now over the photograph rather than under it */
-.wx-hero__grid {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 72px 72px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 30% 46%, #000, transparent 76%);
-  mask-image: radial-gradient(ellipse 70% 60% at 30% 46%, #000, transparent 76%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 70% at 26% 44%, #000, transparent 78%);
+  mask-image: radial-gradient(ellipse 78% 70% at 26% 44%, #000, transparent 78%);
 }
 
 .wx-hero__canvas {
@@ -419,7 +390,7 @@ body.website-page .lt-footer { overflow: hidden; }
   pointer-events: none;
 }
 
-/* ---- the type ----------------------------------------------------- */
+/* ---- the split ----------------------------------------------------- */
 .wx-hero__inner {
   position: relative;
   z-index: 5;
@@ -428,19 +399,30 @@ body.website-page .lt-footer { overflow: hidden; }
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  padding-bottom: clamp(30px, 5vh, 60px);
+}
+
+.wx-hero__split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  width: 100%;
+}
+
+/* ---- left: the message --------------------------------------------- */
+.wx-hero__copy {
+  min-width: 0;
 }
 
 .wx-hero__title {
-  max-width: 15ch;
+  max-width: 12ch;
   margin: 0 0 24px;
   font-family: var(--wx-display);
-  font-size: clamp(40px, 6.4vw, 104px);
+  font-size: clamp(40px, 5.2vw, 86px);
   font-weight: 700;
   line-height: 0.96;
   letter-spacing: -2px;
   text-transform: uppercase;
-  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.8);
 }
 
 .wx-hero__title i {
@@ -452,7 +434,7 @@ body.website-page .lt-footer { overflow: hidden; }
 }
 
 .wx-hero__sub {
-  max-width: 42ch;
+  max-width: 40ch;
   margin: 0 0 34px;
   padding-left: 20px;
   border-left: 1px solid var(--wx-line-2);
@@ -468,8 +450,6 @@ body.website-page .lt-footer { overflow: hidden; }
   margin-bottom: 34px;
 }
 
-/* a thin stat line, not the boxed strip — the photograph behind it does
-   not need another panel sitting on top */
 .wx-hero__stats {
   display: flex;
   flex-wrap: wrap;
@@ -502,30 +482,125 @@ body.website-page .lt-footer { overflow: hidden; }
 .wx-hero__stats b span { color: var(--wx-orange); }
 
 /* =====================================================================
-   THE RAIL — six live builds along the bottom
+   THE FRAME — the client site as a deliberate object
+   A browser shell tilted a few degrees off-axis. The tilt is what keeps
+   it from reading as a flat screenshot pasted into the layout.
    ===================================================================== */
-.wx-hero__rail {
+.wx-hero__show {
   position: relative;
-  z-index: 5;
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 64px) clamp(26px, 4vh, 46px);
+  min-width: 0;
+  perspective: 1600px;
 }
 
-.wx-hero__now {
+/* the glow the frame appears to cast onto the page behind it */
+.wx-hero__show::before {
+  content: '';
+  position: absolute;
+  inset: 6% -4% -10% 2%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+    rgba(var(--wx-orange-rgb), 0.3), transparent 72%);
+  filter: blur(58px);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.wx-frame {
+  position: relative;
+  border: 1px solid var(--wx-line-2);
+  border-radius: 14px;
+  background: var(--wx-chrome);
+  overflow: hidden;
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.05) inset,
+    0 40px 90px -30px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(0, 0, 0, 0.5);
+  transform: rotateY(-7deg) rotateX(2deg) translateZ(0);
+  transform-origin: left center;
+  transition: transform 0.9s var(--wx-ease), box-shadow 0.9s var(--wx-ease);
+}
+
+.wx-hero__show:hover .wx-frame {
+  transform: rotateY(-2.5deg) rotateX(0.5deg) translateZ(0);
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.07) inset,
+    0 48px 110px -30px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(var(--wx-orange-rgb), 0.16);
+}
+
+/* ---- chrome -------------------------------------------------------- */
+.wx-frame__bar {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-  font-size: 10px;
+  gap: 14px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--wx-line);
+  background: linear-gradient(180deg, #16161f, #101018);
+}
+
+.wx-frame__dots {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
+.wx-frame__dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.wx-frame__dots i:first-child { background: rgba(255, 96, 92, 0.85); }
+.wx-frame__dots i:nth-child(2) { background: rgba(255, 189, 68, 0.85); }
+.wx-frame__dots i:nth-child(3) { background: rgba(40, 200, 64, 0.85); }
+
+/* the address bar doubles as the "now showing" readout: #wxNow lives in
+   here, so the domain changes itself as the rail advances */
+.wx-frame__url {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1 1 auto;
+  padding: 6px 12px;
+  border: 1px solid var(--wx-line);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.36);
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  color: var(--wx-muted);
+}
+
+.wx-frame__url i {
+  flex: 0 0 auto;
+  font-size: 9px;
+  color: rgba(40, 200, 64, 0.8);
+}
+
+.wx-frame__url b {
+  overflow: hidden;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.86);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wx-frame__live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 2.4px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
   color: var(--wx-dim);
 }
 
-.wx-hero__now::before {
+.wx-frame__live::before {
   content: '';
   width: 6px;
   height: 6px;
@@ -535,112 +610,84 @@ body.website-page .lt-footer { overflow: hidden; }
   animation: wx-pulse 2.6s ease-in-out infinite;
 }
 
-.wx-hero__now b {
-  color: var(--wx-ink);
-  font-weight: 700;
-  letter-spacing: 1.4px;
-}
-
-.wx-hero__thumbs {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(8px, 1vw, 14px);
-}
-
-.wx-thumb {
+/* ---- the screen ----------------------------------------------------- */
+.wx-frame__screen {
   position: relative;
-  display: block;
-  padding: 0;
-  border: 1px solid var(--wx-line);
-  border-radius: 10px;
-  background: #0c0c14;
+  aspect-ratio: 16 / 10;
+  background: var(--wx-screen);
   overflow: hidden;
-  cursor: pointer;
-  font-family: inherit;
-  text-align: left;
-  transition: border-color 0.45s ease, transform 0.55s var(--wx-ease);
 }
 
-.wx-thumb img {
-  display: block;
+.wx-hero__stage {
+  position: absolute;
+  inset: 0;
+}
+
+/* every capture stacked, one visible — unchanged behaviour, new home */
+.wx-hero__shot {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   object-fit: cover;
   object-position: top center;
-  filter: grayscale(1) brightness(0.55);
-  transition: filter 0.55s ease;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1.2s var(--wx-ease), transform 7s linear;
 }
 
-.wx-thumb:hover { transform: translateY(-4px); border-color: var(--wx-line-2); }
-.wx-thumb:hover img { filter: grayscale(0.4) brightness(0.82); }
-
-.wx-thumb.is-on {
-  border-color: rgba(var(--wx-orange-rgb), 0.75);
-  transform: translateY(-4px);
+.wx-hero__shot.is-on {
+  opacity: 1;
+  transform: scale(1);
 }
 
-.wx-thumb.is-on img { filter: none; }
-
-.wx-thumb__label {
-  display: block;
-  padding: 8px 10px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  color: var(--wx-dim);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.45s ease;
-}
-
-.wx-thumb.is-on .wx-thumb__label { color: var(--wx-ink); }
-
-/* the progress hairline on the active thumb, showing time to the next */
-.wx-thumb::after {
+/* a soft inner vignette so the capture sits inside the shell rather than
+   butting against its edges */
+.wx-frame__screen::after {
   content: '';
   position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 100%;
-  background: var(--wx-orange);
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-
-.wx-thumb.is-on::after {
-  animation: wx-thumb-progress var(--dwell, 6s) linear forwards;
-}
-
-@keyframes wx-thumb-progress {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: inset 0 0 44px rgba(0, 0, 0, 0.34);
 }
 
 /* =====================================================================
    HERO RESPONSIVE
    ===================================================================== */
+@media (max-width: 1100px) {
+  /* the tilt costs width the frame no longer has to spare */
+  .wx-frame { transform: none; }
+  .wx-hero__split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; }
+  .wx-hero__title { font-size: clamp(38px, 6vw, 64px); }
+}
+
 @media (max-width: 980px) {
-  .wx-hero__thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .wx-hero__scrim {
+  /* one column: message first, frame under it, aura recentred over both */
+  .wx-hero__split { grid-template-columns: 1fr; gap: 44px; }
+  .wx-hero__title { max-width: 16ch; }
+  .wx-hero__sub { max-width: 52ch; }
+  .wx-hero__show { max-width: 620px; }
+  .wx-hero__grid {
+    -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 34%, #000, transparent 80%);
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 34%, #000, transparent 80%);
+  }
+  .wx-hero__aura {
     background:
-      linear-gradient(180deg, rgba(5, 5, 8, 0.82) 0%, rgba(5, 5, 8, 0.62) 40%, rgba(5, 5, 8, 0.95) 88%),
-      linear-gradient(120deg, rgba(var(--wx-orange-rgb), 0.14), transparent 52%);
+      radial-gradient(80% 50% at 50% 26%, rgba(var(--wx-orange-rgb), 0.16) 0%, transparent 70%),
+      linear-gradient(180deg, transparent 58%, rgba(5, 5, 8, 0.9) 100%);
   }
 }
 
 @media (max-width: 620px) {
   .wx-hero { padding-top: 112px; }
   .wx-hero__title { letter-spacing: -1px; }
+  .wx-frame__bar { gap: 9px; padding: 9px 10px; }
+  .wx-frame__live { display: none; }
+  .wx-frame__url { font-size: 10px; padding: 5px 10px; }
   .wx-hero__sub { padding-left: 14px; margin-bottom: 26px; }
   .wx-hero__btns .wx-btn { width: 100%; justify-content: space-between; }
   .wx-hero__stats { gap: 12px 22px; }
-
-  /* three thumbnails is the most that stays legible at this width */
-  .wx-hero__thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .wx-thumb:nth-child(n + 4) { display: none; }
-  .wx-thumb__label { font-size: 9px; padding: 6px 7px; }
 }
 
 /* =====================================================================
