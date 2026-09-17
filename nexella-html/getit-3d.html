@@ -184,6 +184,8 @@
     setTimeout(function () { r.classList.remove("sa-armed"); }, 3000);
   })();
 </script>
+  <!-- Global font family override (must load last) -->
+  <link href="css/global-font.css" rel="stylesheet">
 </head>
 
 <body class="antialiased selection:bg-cyan-500 selection:text-black">
@@ -647,7 +649,7 @@
       ctx.fillStyle = 'transparent';
       ctx.fillRect(0, 0, 512, 128);
 
-      ctx.font = 'Bold 44px "Space Grotesk", sans-serif';
+      ctx.font = 'Bold 44px "Josefin Sans", serif';
       ctx.fillStyle = colorHex;
       ctx.textAlign = 'center';
       ctx.shadowColor = colorHex;
